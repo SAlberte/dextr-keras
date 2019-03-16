@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  example:
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./models:/workspace/models
+      - ./examples:/workspace/notebooks
+      - ./dextr:/workspace/libs/dextr
+      - ./imgs:/workspace/imgs
+    build: .

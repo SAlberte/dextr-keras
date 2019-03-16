@@ -4,16 +4,12 @@ from keras.layers import Activation
 from keras.layers import Conv2D
 from keras.layers import MaxPooling2D
 from keras.layers import ZeroPadding2D
-from keras.layers import BatchNormalization
 from keras.models import Model
 
 import keras.backend as K
 
-from networks.classifiers import build_pyramid_pooling_module
-
-
-def BN(axis, name=""):
-    return BatchNormalization(axis=axis, momentum=0.1, name=name, epsilon=1e-5)
+from .classifiers import build_pyramid_pooling_module
+from .helpers import BN
 
 
 def identity_block(input_tensor, kernel_size, filters, stage, block, dilation=1):

@@ -7,9 +7,10 @@ from keras.layers import Activation
 from keras.layers import Conv2D
 from keras.layers import Layer
 
-from networks import resnet
 import keras.backend as K
 from keras.backend import tf as ktf
+
+from .helpers import BN
 
 
 class Upsampling(Layer):
@@ -58,7 +59,7 @@ def psp_block(prev_layer, level, feature_map_shape, input_shape):
     strides = (kernel_strides_map[level][1], kernel_strides_map[level][1])
     prev_layer = AveragePooling2D(kernel, strides=strides)(prev_layer)
     prev_layer = Conv2D(512, (1, 1), strides=(1, 1), name=names[0], use_bias=False)(prev_layer)
-    prev_layer = resnet.BN(bn_axis, name=names[1])(prev_layer)
+    prev_layer = BN(bn_axis, name=names[1])(prev_layer)
     prev_layer = Activation('relu')(prev_layer)
     prev_layer = Upsampling(feature_map_shape)(prev_layer)
     return prev_layer
@@ -87,7 +88,7 @@ def build_pyramid_pooling_module(res, input_shape, nb_classes, sigmoid=False, ou
                          interp_block6,
                          res])
     x = Conv2D(512, (1, 1), strides=(1, 1), padding="same", name="class_psp_reduce_conv", use_bias=False)(res)
-    x = resnet.BN(bn_axis, name="class_psp_reduce_bn")(x)
+    x = BN(bn_axis, name="class_psp_reduce_bn")(x)
     x = Activation('relu')(x)
 
     x = Conv2D(nb_classes, (1, 1), strides=(1, 1), name="class_psp_final_conv")(x)

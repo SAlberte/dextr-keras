@@ -4,23 +4,28 @@ import cv2
 import random
 import numpy as np
 
+from keras.layers import BatchNormalization
+
+
+def BN(axis, name=""):
+    return BatchNormalization(axis=axis, momentum=0.1, name=name, epsilon=1e-5)
+
 
 def tens2image(im):
     if im.size()[0] == 1:
         tmp = np.squeeze(im.numpy(), axis=0)
     else:
         tmp = im.numpy()
-    if tmp.ndim == 2:
-        return tmp
-    else:
-        return tmp.transpose((1, 2, 0))
+
+    return temp if temp.ndim == 2 else tmp.transpose((1, 2, 0))
 
 
 def crop2fullmask(crop_mask, bbox, im=None, im_size=None, zero_pad=False, relax=0, mask_relax=True,
-                  interpolation=cv2.INTER_CUBIC, scikit=False):
+                  interpolation=cv2.INTER_CUBIC, scikit=True):
     if scikit:
         from skimage.transform import resize as sk_resize
     assert(not(im is None and im_size is None)), 'You have to provide an image or the image size'
+    
     if im is None:
         im_si = im_size
     else:
