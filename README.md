@@ -3,56 +3,17 @@ Visit our [project page](http://www.vision.ee.ethz.ch/~cvlsegmentation/dextr) fo
 
 ![DEXTR](doc/dextr.png)
 
-This is the re-implementation of our work `Deep Extreme Cut (DEXTR)`, for object segmentation from extreme points. Only testing is available, if you would like to train use our original [PyTorch](https://github.com/scaelles/DEXTR-PyTorch) repository.
+> This repository contains a python3 package implemention of DEXTR written on-top of keras and tensorflow.
 
 ### Abstract
+
 This paper explores the use of extreme points in an object (left-most, right-most, top, bottom pixels) as input to obtain precise object segmentation for images and videos. We do so by adding an extra channel to the image in the input of a convolutional neural network (CNN), which contains a Gaussian centered in each of the extreme points. The CNN learns to transform this information into a segmentation of an object that matches those extreme points. We demonstrate the usefulness of this approach for guided segmentation (grabcut-style), interactive segmentation, video object segmentation, and dense segmentation annotation. We show that we obtain the most precise results to date, also with less user input, in an extensive and varied selection of benchmarks and datasets.
 
 ### Installation
-The code was tested with [Miniconda](https://conda.io/miniconda.html) and Python 3.6. After installing the Miniconda environment:
 
-
-0. Clone the repo:
-    ```Shell
-    git clone https://github.com/scaelles/DEXTR-KerasTensorflow
-    cd DEXTR-KerasTensorflow
-    ```
- 
-1. Install dependencies:
-    ```Shell
-    conda install matplotlib opencv pillow scikit-learn scikit-image h5py
-    ```
-    For CPU mode:
-    ```Shell
-    pip install tensorflow keras
-    ```
-    For GPU mode (CUDA 9.0 and cuDNN 7.0 is required for the latest Tensorflow version. If you have CUDA 8.0 and cuDNN 6.0 installed, force the installation of the vesion 1.4 by using ```tensorflow-gpu==1.4```. More information [here](https://www.tensorflow.org/install/)):
-    ```Shell
-    pip install tensorflow-gpu keras
-    ```
-    
-  
-2. Download the model by running the script inside ```models/```:
-    ```Shell
-    cd models/
-    chmod +x download_dextr_model.sh
-    ./download_dextr_model.sh
-    cd ..
-    ```
-    The default model is trained on PASCAL VOC Segmentation train + SBD (10582 images). To download models trained on PASCAL VOC Segmentation train or COCO, please visit our [project page](http://www.vision.ee.ethz.ch/~cvlsegmentation/dextr/#downloads), or keep scrolling till the end of this README.
-
-3. To try the demo version of DEXTR, please run:
-    ```Shell
-    python demo.py
-    ```
-    If you have multiple GPUs, you can specify which one should be used (for example gpu with id 0):
-    ```Shell
-    CUDA_VISIBLE_DEVICES=0 python demo.py
-    ```
-If installed correctly, the result should look like this:
-<p align="center"><img src="doc/github_teaser.gif" align="center" width=480 height=auto/></p>
-
-Enjoy!!
+1. Clone this repository: `git clone https://github.com/jsbroks/dextr-keras/`
+2. Install dependencies found in the `requirements.txt`: `pip3 install -r requirements.txt`
+3. Install python package: `python3 setup.py install`
 
 ### Pre-trained models
 We provide the following DEXTR models, pre-trained on:
