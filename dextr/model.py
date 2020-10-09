@@ -2,6 +2,7 @@
 from os.path import splitext, join
 import numpy as np
 from scipy import misc
+from tensorflow import keras
 from keras import backend as K
 
 import tensorflow as tf
